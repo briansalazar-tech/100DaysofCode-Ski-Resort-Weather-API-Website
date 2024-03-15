@@ -1,0 +1,49 @@
+{% include "header.html" %}
+
+        <section id="content">
+        <div class="container">
+            <h2 class="d-flex flex-wrap justify-content-left resort_main">{{ resort_values[0] }}</h2>
+            <p><a class="p_links" href="{{ resort_values[1] }}">{{ resort_values[0] }}'s Website</a></p>
+            <p>The weather data for this resport is pulled using the OpenWeather API. API call used is the <span><a class="p_links" href="https://openweathermap.org/forecast5">5 Day / 3 Hour Forecase API</a></span> . The table below displays the weather information for {{ resort_values[0] }} over five days in three hour increments. </p>
+        </section> 
+
+        <section id="table">
+            <div class="container">
+                <h3>Weather Data</h3>
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">Date & Time</th>
+                    <th scope="col">Temperature (°F)</th>
+                    <th scope="col">Feels Like (°F)</th>
+                    <th scope="col">Humidity %</th>
+                    <th scope="col">Weather Description</th>
+                    <th scope="col">Cloudiness %</th>
+                    <th scope="col">Winds MPH</th>
+                    <th scope="col">Gusts MPH</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in resort_values[2:] %}
+                    <tr>
+                    {% for item in row  %}
+                    <td>{{ item }}</td>
+                    {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="resort_links">
+            <div class="container">
+                <ul class="d-flex flex-wrap justify-content-center nav nav-pills">
+                    {% for name in resort_names %}
+                    <li class="nav-item"><a href="{{url_for('resort', num = resort_names.index(name) )}}" class="nav-link p_links">{{ name }}</a></li>
+                    {% endfor %}
+                    </ul>
+            </div>
+        </section>
+
+        {% include "footer.html" %}
